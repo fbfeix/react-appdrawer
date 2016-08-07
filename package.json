@@ -1,0 +1,26 @@
+{
+  "name": "react-appdrawer",
+  "version": "0.0.1",
+  "description": "A simple react component which acts as application container with sidebar",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fbfeix/react-appdrawer.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "application",
+    "drawer",
+    "responsive"
+  ],
+  "author": "Felix Astner <me@felixastner.de> (http://felixastner.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fbfeix/react-appdrawer/issues"
+  },
+  "homepage": "https://github.com/fbfeix/react-appdrawer#readme"
+}
