@@ -1,6 +1,6 @@
 {
   "name": "react-appdrawer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple react component which acts as application container with sidebar",
   "main": "distribution/AppDrawer.js",
   "scripts": {
