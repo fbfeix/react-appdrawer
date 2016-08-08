@@ -53,13 +53,13 @@ class AppDrawer extends Component {
         return this.state.sideBarIsOpen;
     }
 
-    open() {
+    openSidebar() {
         if(this.props.enabled) {
             this.state.sideBarIsOpen = true;
         }
     }
 
-    close() {
+    closeSidebar() {
         if(this.props.enabled) {
             this.state.sideBarIsOpen = true;
         }
