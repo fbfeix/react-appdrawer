@@ -27,21 +27,83 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AppDrawer = function (_Component) {
     _inherits(AppDrawer, _Component);
 
-    function AppDrawer() {
+    function AppDrawer(props) {
         _classCallCheck(this, AppDrawer);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(AppDrawer).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AppDrawer).call(this, props));
+
+        _this.state = {
+            /**
+             * this is OK since owner ownes stati of ownee
+             */
+            sideBarIsOpen: false,
+
+            /**
+             * determines the heigh of the sidebar
+             */
+            sidebarHeight: 0
+        };
+
+        _this.onWindowResize = _this.onWindowResize.bind(_this);
+        return _this;
     }
 
     _createClass(AppDrawer, [{
+        key: 'onWindowResize',
+        value: function onWindowResize() {
+            this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+            this.refs.sidebar.height = this.state.sidebarHeight;
+        }
+
+        /* installs resize-event-listener on window */
+
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            window.addEventListener('resize', this.onWindowResize);
+
+            this.onWindowResize();
+        }
+
+        /* removes resize-event-listener on window */
+
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.removeEventListener('resize', this.onWindowResize);
+        }
+    }, {
+        key: 'isOpen',
+        value: function isOpen() {
+            return this.state.sideBarIsOpen;
+        }
+    }, {
+        key: 'openSidebar',
+        value: function openSidebar() {
+            if (this.props.enabled) {
+                this.state.sideBarIsOpen = true;
+            }
+        }
+    }, {
+        key: 'closeSidebar',
+        value: function closeSidebar() {
+            if (this.props.enabled) {
+                this.state.sideBarIsOpen = true;
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var classname = "application " + this.props.className;
+            var isOpen = this.state.sideBarIsOpen;
+
             return _react2.default.createElement(
                 'div',
-                { ref: 'application', className: 'application' },
+                { ref: 'application', className: classname, id: this.props.id },
                 _react2.default.createElement(
                     _Sidebar2.default,
-                    null,
+                    { height: this.state.sidebarHeight, isOpen: isOpen, ref: 'sidebar' },
                     this.props.sidebarContent
                 ),
                 _react2.default.createElement(
@@ -58,14 +120,18 @@ var AppDrawer = function (_Component) {
 
 AppDrawer.propTypes = {
     title: _react.PropTypes.string,
+    id: _react.PropTypes.string,
     sidebarContent: _react.PropTypes.node,
-    router: _react.PropTypes.node,
+    /**
+     * if enabled is false, it keeps it's state, no matter what happens.
+     * */
     enabled: _react.PropTypes.bool
 };
 
 AppDrawer.defaultProps = {
     title: "My Application",
-    enabled: true
+    enabled: true,
+    id: ""
 };
 
 module.exports = AppDrawer;

@@ -7,7 +7,9 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "babel source --out-dir distribution",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "browserify": "npm run build && browserify distribution/AppDrawer.js -o distribution/browser/appdrawer.js",
+    "uglify": "npm run browserify && uglifyjs distribution/browser/appdrawer.js  --compress -o distribution/browser/appdrawer.min.js"
   },
   "repository": {
     "type": "git",

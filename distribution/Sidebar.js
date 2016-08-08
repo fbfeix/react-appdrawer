@@ -16,8 +16,6 @@ var _SidebarItem = require('./SidebarItem');
 
 var _SidebarItem2 = _interopRequireDefault(_SidebarItem);
 
-require('./Sidebar.scss');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,97 +24,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//import './Sidebar.scss';
+
 var Sidebar = function (_Component) {
     _inherits(Sidebar, _Component);
 
     function Sidebar(props) {
         _classCallCheck(this, Sidebar);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Sidebar).call(this, props));
-
-        _this.state = {
-            opened: false,
-            height: 100
-        };
-
-        _this.toggle = _this.toggle.bind(_this);
-        _this.triggerToggledSidebarCallback = _this.triggerToggledSidebarCallback.bind(_this);
-        _this.onWindowResize = _this.onWindowResize.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Sidebar).call(this, props));
     }
 
-    /* installs resize-event-listener on window */
-
-
     _createClass(Sidebar, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            window.addEventListener('resize', this.onWindowResize);
-
-            this.onWindowResize();
-        }
-
-        /* removes resize-event-listener on window */
-
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            window.removeEventListener('resize', this.onWindowResize);
-        }
-
-        /* observes window resize and sets height of the sidebar */
-
-    }, {
-        key: 'onWindowResize',
-        value: function onWindowResize() {
-            this.state.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-            this.forceUpdate();
-        }
-    }, {
-        key: 'isOpened',
-        value: function isOpened() {
-            return this.state.opened;
-        }
-    }, {
-        key: 'open',
-        value: function open() {
-            this.state.opened = true;
-            this.triggerToggledSidebarCallback();
-            this.forceUpdate();
-        }
-    }, {
-        key: 'close',
-        value: function close() {
-            this.state.opened = false;
-            this.triggerToggledSidebarCallback();
-            this.forceUpdate();
-        }
-    }, {
-        key: 'toggle',
-        value: function toggle() {
-            this.state.opened = !this.state.opened;
-            this.triggerToggledSidebarCallback();
-            this.forceUpdate();
-        }
-    }, {
-        key: 'triggerToggledSidebarCallback',
-        value: function triggerToggledSidebarCallback() {
-            if (this.props.onToggledSidebar != undefined) {
-                this.props.onToggledSidebar({
-                    isOpened: this.state.opened
-                });
-            }
-        }
-    }, {
         key: 'render',
         value: function render() {
             var classname = "sidebar-group ";
-
-            if (this.state.opened) {
-                classname += "opened";
-            } else {
-                classname += "closed";
-            }
 
             var time = 100 - _react2.default.Children.count(this.props.children) * 3;
 
@@ -125,27 +47,31 @@ var Sidebar = function (_Component) {
                 children = _react2.default.Children.map(this.props.children, function (child) {
 
                 var ref = 'item-' + index++;
+                var key = 'sidebar-' + ref;
 
                 delay += time;
 
                 return _react2.default.createElement(
                     _SidebarItem2.default,
-                    { ref: ref, transitionDelay: delay },
+                    { ref: ref, key: key, transitionDelay: delay },
                     child
                 );
             });
 
             var overlayStyle = {
-                height: this.state.height
+                height: this.props.height
             };
 
             var sidebarStyle = {
-                height: this.state.height
+                height: this.props.height
             };
 
-            if (!this.state.opened) {
+            if (!this.props.isOpen) {
                 sidebarStyle.transitionDelay = delay + "ms";
             }
+
+            var sideDetermination = 'sidebar-' + this.props.direction;
+            var sidebarClass = 'fit sidebar ' + sideDetermination + ' ' + (this.props.isOpen ? 'open' : 'closed');
 
             return _react2.default.createElement(
                 'div',
@@ -153,7 +79,7 @@ var Sidebar = function (_Component) {
                 _react2.default.createElement('div', { style: overlayStyle, onClick: this.toggle, className: 'fit overlay' }),
                 _react2.default.createElement(
                     'div',
-                    { style: sidebarStyle, className: 'fit sidebar', ref: 'bar' },
+                    { style: sidebarStyle, className: sidebarClass, ref: 'bar' },
                     children
                 )
             );
@@ -167,5 +93,18 @@ exports.default = Sidebar;
 
 
 Sidebar.propTypes = {
-    onToggledSidebar: _react2.default.PropTypes.func
+    onToggledSidebar: _react.PropTypes.func,
+    /**
+     * determines the orientation of the sidebar (left|right)
+     * If CSS-classes are provided, it also allows custom directions (ie. top|center|...)
+     * The render method merges automatically the classname: 'sidebar-{direction}'
+     */
+    direction: _react.PropTypes.string,
+    height: _react.PropTypes.number,
+    isOpen: _react.PropTypes.bool
+};
+
+Sidebar.defaultProps = {
+    direction: 'left',
+    isOpen: false
 };
