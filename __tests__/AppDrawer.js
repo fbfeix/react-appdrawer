@@ -25,11 +25,14 @@ describe('AppDrawer', () => {
         const sidebarDOMNode = TestUtils.findRenderedDOMComponentWithClass(appDrawer, 'sidebar');
         expect(sidebarDOMNode).not.toBe(undefined);
         expect(sidebarDOMNode).not.toBe(null);
-    
+
+        let resultDOM = TestUtils.findRenderedDOMComponentWithClass(appDrawer, 'closed');
+        expect(resultDOM).not.toBe(undefined);
+        expect(resultDOM).not.toBe(null);
     }
 
 
-    it('allows multiple enabled states', () => {
+    it('allows disabled state', () => {
         const enabledApp = TestUtils.renderIntoDocument(
             <AppDrawer enabled={false} />
         );
@@ -37,27 +40,12 @@ describe('AppDrawer', () => {
         let list = TestUtils.findRenderedDOMComponentWithClass(enabledApp, 'sidebar');
 
         isSidebarClosed(enabledApp, "left");
+        
+        let resultDOM = TestUtils.findRenderedDOMComponentWithClass(enabledApp, 'closed');
 
-        enabledApp.open();
+        enabledApp.openSidebar();
         isSidebarClosed(enabledApp, "left");
 
     });
 
-    it('sidebar is fully hidden in closed-mode', () => {
-        const appNode = ReactDOM.findDOMNode(app);
-        
-        let sidebar = TestUtils.scryRenderedDOMComponentsWithClass(app, "sidebar");
-        
-        //expect(sidebar).toBe(null);
-
-
-        //expect(TestUtils.scryRenderedDOMComponentsWithClass(app, 'sidebar').length).toBe(1);
-
-        //expect(appNode).not.toBe(null);
-        //expect(appNode)
-    });
-
-    it('fires events and changes classNames if the window changes its size', () => {
-
-    })
 })

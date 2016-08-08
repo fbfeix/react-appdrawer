@@ -43,7 +43,7 @@ export default class Sidebar extends Component {
         }
 
         let sideDetermination = `sidebar-${this.props.direction}`;
-        let sidebarClass = `fit sidebar ${sideDetermination}`;
+        let sidebarClass = `fit sidebar ${sideDetermination} ${this.props.isOpen ? 'open' : 'closed'}`;
 
         return <div className={classname}>
             
@@ -65,9 +65,11 @@ Sidebar.propTypes = {
      * The render method merges automatically the classname: 'sidebar-{direction}'
      */
     direction: PropTypes.string,
-    height: PropTypes.number
+    height: PropTypes.number,
+    isOpen: PropTypes.bool
 }
 
 Sidebar.defaultProps = {
-    direction: 'left'
+    direction: 'left',
+    isOpen: false
 }
