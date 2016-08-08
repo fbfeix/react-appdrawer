@@ -1,6 +1,8 @@
 # react-appdrawer [![Build Status](https://travis-ci.org/fbfeix/react-appdrawer.svg?branch=master)](https://travis-ci.org/fbfeix/react-appdrawer)
 > A simple react component which acts as application container with sidebar
 
+__Please be aware of the fact that this component isn't finished yet.__
+
 ## Install
 ```sh
 $ npm install react-appdrawer
