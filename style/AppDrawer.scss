@@ -1,0 +1,47 @@
+.sidebar-group {
+
+    &.closed{
+
+        .sidebar {
+            left: -235px; // a bit more because of shadow
+            right: auto;
+
+            .sidebar-item {
+                margin-left: -200px;
+            }
+        }
+
+        .overlay {
+            display: none;
+        }
+    }
+
+    &.open{
+        .sidebar {
+            left: 0px;
+            right: auto;
+            
+            .sidebar-item {
+                margin-left: 0px;
+            }
+        }
+
+        .overlay {
+            display: block;
+        }
+    }
+
+    .sidebar {
+        width: 230px;
+        height: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+        transition: 0.3s left ease-in-out;
+        
+        .sidebar-item {
+            transition: 0.3s margin-left ease-in-out;        
+        }
+
+        
+    }
+}

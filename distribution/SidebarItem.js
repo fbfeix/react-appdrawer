@@ -1,14 +1,16 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Sidebar = require('./Sidebar');
-
-var _Sidebar2 = _interopRequireDefault(_Sidebar);
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18,54 +20,64 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/**
- * class AppDrawer
- * The closing container div has no special function. It just binds the application together.
- * @important The Sidebar handles resizing and so on by itself.
- * @important Since the Sidebar is not animated via Javascript, it requires CSS transitions!
- */
-var AppDrawer = function (_Component) {
-    _inherits(AppDrawer, _Component);
+var SidebarItem = function (_Component) {
+    _inherits(SidebarItem, _Component);
 
-    function AppDrawer() {
-        _classCallCheck(this, AppDrawer);
+    function SidebarItem(props) {
+        _classCallCheck(this, SidebarItem);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(AppDrawer).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SidebarItem).call(this, props));
+
+        _this.state = {
+            offscreen: true
+        };
+        return _this;
     }
 
-    _createClass(AppDrawer, [{
+    _createClass(SidebarItem, [{
+        key: 'appear',
+        value: function appear() {
+            this.state.offscreen = false;
+        }
+    }, {
+        key: 'disappear',
+        value: function disappear() {
+            this.state.offscreen = true;
+        }
+    }, {
+        key: 'toggleAppearance',
+        value: function toggleAppearance() {
+            this.state.offscreen = !this.state.offscreen;
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var style = {
+                transitionDelay: this.props.transitionDelay + "ms"
+            };
+
+            var classname = "sidebar-item ";
+
+            if (this.state.offscreen) {
+                classname += "disappeared";
+            } else {
+                classname += "appeared";
+            }
+
             return _react2.default.createElement(
                 'div',
-                { ref: 'application', className: 'application' },
-                _react2.default.createElement(
-                    _Sidebar2.default,
-                    null,
-                    this.props.sidebarContent
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'content', ref: 'content' },
-                    this.props.children
-                )
+                { className: classname, style: style },
+                this.props.children
             );
         }
     }]);
 
-    return AppDrawer;
+    return SidebarItem;
 }(_react.Component);
 
-AppDrawer.propTypes = {
-    title: _react.PropTypes.string,
-    sidebarContent: _react.PropTypes.node,
-    router: _react.PropTypes.node,
-    enabled: _react.PropTypes.bool
-};
+exports.default = SidebarItem;
 
-AppDrawer.defaultProps = {
-    title: "My Application",
-    enabled: true
-};
 
-module.exports = AppDrawer;
+SidebarItem.propTypes = {
+    transitionDelay: _react2.default.PropTypes.number
+};
