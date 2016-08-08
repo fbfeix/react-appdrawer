@@ -1,13 +1,33 @@
 .sidebar-group {
 
+    .fit {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+    }
+
     &.closed{
 
         .sidebar {
-            left: -235px; // a bit more because of shadow
-            right: auto;
 
-            .sidebar-item {
-                margin-left: -200px;
+            &.sidebar-left {
+                left: -230px;
+                right: auto;
+
+                .sidebar-item {
+                    margin-left: -200px;
+                }
+            }
+
+            &.sidebar-right {
+                left: auto;
+                right: -230px;
+
+                .sidebar-item {
+                    margin-right: -200px;
+                }
             }
         }
 
@@ -18,11 +38,23 @@
 
     &.open{
         .sidebar {
-            left: 0px;
-            right: auto;
-            
-            .sidebar-item {
-                margin-left: 0px;
+
+            &.sidebar-left {
+                left: 0px;
+                right: auto;
+                
+                .sidebar-item {
+                    margin-left: 0px;
+                }
+            }
+
+            &.sidebar-right {
+                left: auto;
+                right: 0px;
+                
+                .sidebar-item {
+                    margin-right: 0px;
+                }
             }
         }
 
@@ -38,8 +70,17 @@
         overflow-y: auto;
         transition: 0.3s left ease-in-out;
         
-        .sidebar-item {
-            transition: 0.3s margin-left ease-in-out;        
+
+        &.sidebar-left {
+            .sidebar-item {
+                transition: 0.3s margin-left ease-in-out;        
+            }
+        }
+
+        &.sidebar-right {
+            .sidebar-item {
+                transition: 0.3s margin-right ease-in-out;        
+            }
         }
 
         

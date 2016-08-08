@@ -43,12 +43,12 @@ export default class Sidebar extends Component {
         }
 
         let sideDetermination = `sidebar-${this.props.direction}`;
-
+        let sidebarClass = `fit sidebar ${sideDetermination}`;
 
         return <div className={classname}>
             
             <div style={overlayStyle} onClick={this.toggle} className="fit overlay"  />
-            <div style={sidebarStyle} className="fit sidebar" ref="bar">                
+            <div style={sidebarStyle} className={sidebarClass} ref="bar">                
                     {children}
             </div>
             
