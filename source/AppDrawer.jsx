@@ -29,12 +29,14 @@ class AppDrawer extends Component {
         };
 
         this.onWindowResize = this.onWindowResize.bind(this);
+        this.toggleSidebar = this.toggleSidebar.bind(this);
     }
 
     onWindowResize() {
         this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        
+        console.log(this.state.sidebarHeight);
         this.refs.sidebar.height = this.state.sidebarHeight; 
+        this.forceUpdate();
     }
 
     /* installs resize-event-listener on window */
@@ -56,21 +58,32 @@ class AppDrawer extends Component {
     openSidebar() {
         if(this.props.enabled) {
             this.state.sideBarIsOpen = true;
+            this.forceUpdate();
         }
     }
 
     closeSidebar() {
         if(this.props.enabled) {
             this.state.sideBarIsOpen = true;
+            this.forceUpdate();
         }
     }
+
+    toggleSidebar() {
+        if(this.props.enabled) {
+            this.state.sideBarIsOpen = !this.state.sideBarIsOpen;
+            this.forceUpdate();
+        }
+    }
+
 
     render() {
         let classname = "application " + this.props.className;        
         let isOpen = this.state.sideBarIsOpen;
 
+
         return <div ref="application" className={classname} id={this.props.id}>
-            <Sidebar height={this.state.sidebarHeight} isOpen={isOpen} ref="sidebar">{this.props.sidebarContent}</Sidebar>
+            <Sidebar height={this.state.sidebarHeight} isOpen={isOpen} wantsToggle={this.toggleSidebar} ref="sidebar">{this.props.sidebarContent}</Sidebar>
             <div className="content" ref="content">
                 {this.props.children}
             </div>
@@ -91,7 +104,8 @@ AppDrawer.propTypes = {
 AppDrawer.defaultProps = {
     title: "My Application",
     enabled: true,
-    id: ""
+    id: "",
+    className: ""
 }
 
 

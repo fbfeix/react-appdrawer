@@ -5,6 +5,7 @@
   "main": "distribution/AppDrawer.js",
   "scripts": {
     "test": "jest",
+    "demo": "babel-node demo/demo.jsx",
     "coverage": "jest --coverage",
     "build": "babel source --out-dir distribution",
     "prepublish": "npm run build",
@@ -29,16 +30,33 @@
   },
   "homepage": "https://github.com/fbfeix/react-appdrawer#readme",
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel": "*",
     "babel-cli": "^6.11.4",
     "babel-jest": "^14.1.0",
+    "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "img-loader": "^1.3.1",
     "jest-cli": "^14.1.0",
+    "node-sass": "^3.8.0",
+    "postcss-loader": "^0.9.1",
     "react-addons-test-utils": "^15.3.0",
-    "react-test-renderer": "^15.3.0"
+    "react-hot-loader": "^1.3.0",
+    "react-test-renderer": "^15.3.0",
+    "sass-loader": "^4.0.0",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "babel-core": "^6.13.2",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-router": "^2.6.1"

@@ -10,10 +10,18 @@ export default class Sidebar extends Component {
 
     constructor(props) {
         super(props);
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        if(this.props.wantsToggle !== undefined) {
+            this.props.wantsToggle();
+        }
     }
 
     render() {
-        let classname = "sidebar-group ";     
+        let classname = `sidebar-group  ${this.props.isOpen ? 'open' : 'closed'}`;     
 
         const time = 100 - (React.Children.count(this.props.children) * 3);
 
@@ -43,7 +51,7 @@ export default class Sidebar extends Component {
         }
 
         let sideDetermination = `sidebar-${this.props.direction}`;
-        let sidebarClass = `fit sidebar ${sideDetermination} ${this.props.isOpen ? 'open' : 'closed'}`;
+        let sidebarClass = `fit sidebar ${sideDetermination}`;
 
         return <div className={classname}>
             
@@ -66,10 +74,11 @@ Sidebar.propTypes = {
      */
     direction: PropTypes.string,
     height: PropTypes.number,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    wantsToggle: PropTypes.func
 }
 
 Sidebar.defaultProps = {
-    direction: 'left',
+    direction: 'right',
     isOpen: false
 }
