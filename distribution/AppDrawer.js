@@ -116,14 +116,20 @@ var AppDrawer = function (_Component) {
                 console.error(e);
             }
 
-            return _react2.default.createElement(
-                'div',
-                { ref: 'application', className: classname, id: this.props.id },
-                _react2.default.createElement(
+            var sidebar = null;
+
+            if (!this.props.removeSidebar) {
+                sidebar = _react2.default.createElement(
                     _Sidebar2.default,
                     { orientation: this.props.sidebarOrientation, height: this.state.sidebarHeight, isOpen: isOpen, wantsToggle: this.toggleSidebar, ref: 'sidebar' },
                     this.props.sidebarContent
-                ),
+                );
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { ref: 'application', className: classname, id: this.props.id },
+                sidebar,
                 _react2.default.createElement(
                     'div',
                     { className: 'content', ref: 'content' },
@@ -144,7 +150,11 @@ AppDrawer.propTypes = {
     /**
      * if enabled is false, it keeps it's state, no matter what happens.
      * */
-    enabled: _react2.default.PropTypes.bool
+    enabled: _react2.default.PropTypes.bool,
+    /**
+     * set this to true if you don't want to display a sidebar, i.e. if you have a big screen
+     */
+    removeSidebar: _react2.default.PropTypes.bool
 };
 
 AppDrawer.defaultProps = {
@@ -152,7 +162,8 @@ AppDrawer.defaultProps = {
     enabled: true,
     id: "",
     className: "",
-    sidebarOrientation: "left"
+    sidebarOrientation: "left",
+    removeSidebar: false
 };
 
 module.exports = AppDrawer;

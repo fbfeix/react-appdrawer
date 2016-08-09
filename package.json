@@ -10,7 +10,8 @@
     "build": "babel source --out-dir distribution",
     "prepublish": "npm run build",
     "browserify": "npm run build && browserify distribution/AppDrawer.js -o distribution/browser/appdrawer.js",
-    "uglify": "npm run browserify && uglifyjs distribution/browser/appdrawer.js  --compress -o distribution/browser/appdrawer.min.js"
+    "uglify": "npm run browserify && uglifyjs distribution/browser/appdrawer.js  --compress -o distribution/browser/appdrawer.min.js",
+    "codecov": "jest && codecov"
   },
   "repository": {
     "type": "git",
@@ -77,6 +78,8 @@
       "js",
       "jsx",
       "json"
-    ]
+    ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
