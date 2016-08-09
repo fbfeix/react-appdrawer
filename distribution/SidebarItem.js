@@ -20,49 +20,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Helper class SidebarItem
+ * It's very own job is to add transitionDelays to all Items of the Sidebar
+ */
 var SidebarItem = function (_Component) {
     _inherits(SidebarItem, _Component);
 
     function SidebarItem(props) {
         _classCallCheck(this, SidebarItem);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SidebarItem).call(this, props));
-
-        _this.state = {
-            offscreen: true
-        };
-        return _this;
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SidebarItem).call(this, props));
     }
 
     _createClass(SidebarItem, [{
-        key: 'appear',
-        value: function appear() {
-            this.state.offscreen = false;
-        }
-    }, {
-        key: 'disappear',
-        value: function disappear() {
-            this.state.offscreen = true;
-        }
-    }, {
-        key: 'toggleAppearance',
-        value: function toggleAppearance() {
-            this.state.offscreen = !this.state.offscreen;
-        }
-    }, {
         key: 'render',
         value: function render() {
             var style = {
                 transitionDelay: this.props.transitionDelay + "ms"
             };
 
-            var classname = "sidebar-item ";
-
-            if (this.state.offscreen) {
-                classname += "disappeared";
-            } else {
-                classname += "appeared";
-            }
+            var classname = "sidebar-item " + (this.props.className || "");
 
             return _react2.default.createElement(
                 'div',

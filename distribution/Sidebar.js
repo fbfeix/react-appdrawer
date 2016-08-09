@@ -24,8 +24,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//import './Sidebar.scss';
-
+/**
+ * Sidebar class.
+ * In default mode, it represents a component which can be faded in and out of the left and right side of a screen.
+ * In non-default mode (orientation != left|right), it's also possible to use it as overlay etc.
+ */
 var Sidebar = function (_Component) {
     _inherits(Sidebar, _Component);
 
@@ -80,7 +83,7 @@ var Sidebar = function (_Component) {
                 sidebarStyle.transitionDelay = delay + "ms";
             }
 
-            var sideDetermination = 'sidebar-' + this.props.direction;
+            var sideDetermination = 'sidebar-' + this.props.orientation;
             var sidebarClass = 'fit sidebar ' + sideDetermination;
 
             return _react2.default.createElement(
@@ -103,19 +106,19 @@ exports.default = Sidebar;
 
 
 Sidebar.propTypes = {
-    onToggledSidebar: _react.PropTypes.func,
+    onToggledSidebar: _react2.default.PropTypes.func,
     /**
      * determines the orientation of the sidebar (left|right)
-     * If CSS-classes are provided, it also allows custom directions (ie. top|center|...)
-     * The render method merges automatically the classname: 'sidebar-{direction}'
+     * If CSS-classes are provided, it also allows custom orientations (ie. top|center|...)
+     * The render method merges automatically the classname: 'sidebar-{orientation}'
      */
-    direction: _react.PropTypes.string,
-    height: _react.PropTypes.number,
-    isOpen: _react.PropTypes.bool,
-    wantsToggle: _react.PropTypes.func
+    orientation: _react2.default.PropTypes.string,
+    height: _react2.default.PropTypes.number,
+    isOpen: _react2.default.PropTypes.bool,
+    wantsToggle: _react2.default.PropTypes.func
 };
 
 Sidebar.defaultProps = {
-    direction: 'right',
+    orientation: 'left',
     isOpen: false
 };

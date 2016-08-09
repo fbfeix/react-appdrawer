@@ -53,7 +53,7 @@ var AppDrawer = function (_Component) {
         key: 'onWindowResize',
         value: function onWindowResize() {
             this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-            console.log(this.state.sidebarHeight);
+
             this.refs.sidebar.height = this.state.sidebarHeight;
             this.forceUpdate();
         }
@@ -110,12 +110,18 @@ var AppDrawer = function (_Component) {
             var classname = "application " + this.props.className;
             var isOpen = this.state.sideBarIsOpen;
 
+            try {
+                document.title = this.props.title;
+            } catch (e) {
+                console.error(e);
+            }
+
             return _react2.default.createElement(
                 'div',
                 { ref: 'application', className: classname, id: this.props.id },
                 _react2.default.createElement(
                     _Sidebar2.default,
-                    { height: this.state.sidebarHeight, isOpen: isOpen, wantsToggle: this.toggleSidebar, ref: 'sidebar' },
+                    { orientation: this.props.sidebarOrientation, height: this.state.sidebarHeight, isOpen: isOpen, wantsToggle: this.toggleSidebar, ref: 'sidebar' },
                     this.props.sidebarContent
                 ),
                 _react2.default.createElement(
@@ -131,20 +137,22 @@ var AppDrawer = function (_Component) {
 }(_react.Component);
 
 AppDrawer.propTypes = {
-    title: _react.PropTypes.string,
-    id: _react.PropTypes.string,
-    sidebarContent: _react.PropTypes.node,
+    title: _react2.default.PropTypes.string,
+    id: _react2.default.PropTypes.string,
+    sidebarContent: _react2.default.PropTypes.node,
+    sidebarOrientation: _react2.default.PropTypes.string,
     /**
      * if enabled is false, it keeps it's state, no matter what happens.
      * */
-    enabled: _react.PropTypes.bool
+    enabled: _react2.default.PropTypes.bool
 };
 
 AppDrawer.defaultProps = {
     title: "My Application",
     enabled: true,
     id: "",
-    className: ""
+    className: "",
+    sidebarOrientation: "left"
 };
 
 module.exports = AppDrawer;

@@ -88,8 +88,14 @@ class AppDrawer extends Component {
             console.error(e);
         }
 
+        let sidebar = null;
+
+        if(!this.props.removeSidebar) {
+            sidebar = <Sidebar orientation={this.props.sidebarOrientation} height={this.state.sidebarHeight} isOpen={isOpen} wantsToggle={this.toggleSidebar} ref="sidebar">{this.props.sidebarContent}</Sidebar>
+        } 
+
         return <div ref="application" className={classname} id={this.props.id}>
-            <Sidebar orientation={this.props.sidebarOrientation} height={this.state.sidebarHeight} isOpen={isOpen} wantsToggle={this.toggleSidebar} ref="sidebar">{this.props.sidebarContent}</Sidebar>
+            {sidebar}
             <div className="content" ref="content">
                 {this.props.children}
             </div>
@@ -105,7 +111,11 @@ AppDrawer.propTypes = {
     /**
      * if enabled is false, it keeps it's state, no matter what happens.
      * */    
-    enabled: React.PropTypes.bool
+    enabled: React.PropTypes.bool,
+    /**
+     * set this to true if you don't want to display a sidebar, i.e. if you have a big screen
+     */
+    removeSidebar: React.PropTypes.bool
 }
 
 AppDrawer.defaultProps = {
@@ -113,7 +123,8 @@ AppDrawer.defaultProps = {
     enabled: true,
     id: "",
     className: "",
-    sidebarOrientation: "left"
+    sidebarOrientation: "left",
+    removeSidebar: false
 }
 
 
