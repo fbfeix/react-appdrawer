@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 import Sidebar from './Sidebar';
 
@@ -34,7 +34,7 @@ class AppDrawer extends Component {
 
     onWindowResize() {
         this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        console.log(this.state.sidebarHeight);
+        
         this.refs.sidebar.height = this.state.sidebarHeight; 
         this.forceUpdate();
     }
@@ -81,9 +81,15 @@ class AppDrawer extends Component {
         let classname = "application " + this.props.className;        
         let isOpen = this.state.sideBarIsOpen;
 
+        try {
+            document.title = this.props.title;
+
+        } catch (e) {
+            console.error(e);
+        }
 
         return <div ref="application" className={classname} id={this.props.id}>
-            <Sidebar height={this.state.sidebarHeight} isOpen={isOpen} wantsToggle={this.toggleSidebar} ref="sidebar">{this.props.sidebarContent}</Sidebar>
+            <Sidebar orientation={this.props.sidebarOrientation} height={this.state.sidebarHeight} isOpen={isOpen} wantsToggle={this.toggleSidebar} ref="sidebar">{this.props.sidebarContent}</Sidebar>
             <div className="content" ref="content">
                 {this.props.children}
             </div>
@@ -92,20 +98,22 @@ class AppDrawer extends Component {
 }
 
 AppDrawer.propTypes = {
-    title: PropTypes.string,
-    id: PropTypes.string,
-    sidebarContent: PropTypes.node,
+    title: React.PropTypes.string,
+    id: React.PropTypes.string,
+    sidebarContent: React.PropTypes.node,
+    sidebarOrientation: React.PropTypes.string,
     /**
      * if enabled is false, it keeps it's state, no matter what happens.
      * */    
-    enabled: PropTypes.bool
+    enabled: React.PropTypes.bool
 }
 
 AppDrawer.defaultProps = {
     title: "My Application",
     enabled: true,
     id: "",
-    className: ""
+    className: "",
+    sidebarOrientation: "left"
 }
 
 

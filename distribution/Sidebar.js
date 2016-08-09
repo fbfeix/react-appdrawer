@@ -32,13 +32,23 @@ var Sidebar = function (_Component) {
     function Sidebar(props) {
         _classCallCheck(this, Sidebar);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Sidebar).call(this, props));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Sidebar).call(this, props));
+
+        _this.toggle = _this.toggle.bind(_this);
+        return _this;
     }
 
     _createClass(Sidebar, [{
+        key: 'toggle',
+        value: function toggle() {
+            if (this.props.wantsToggle !== undefined) {
+                this.props.wantsToggle();
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var classname = "sidebar-group ";
+            var classname = 'sidebar-group  ' + (this.props.isOpen ? 'open' : 'closed');
 
             var time = 100 - _react2.default.Children.count(this.props.children) * 3;
 
@@ -71,7 +81,7 @@ var Sidebar = function (_Component) {
             }
 
             var sideDetermination = 'sidebar-' + this.props.direction;
-            var sidebarClass = 'fit sidebar ' + sideDetermination + ' ' + (this.props.isOpen ? 'open' : 'closed');
+            var sidebarClass = 'fit sidebar ' + sideDetermination;
 
             return _react2.default.createElement(
                 'div',
@@ -101,10 +111,11 @@ Sidebar.propTypes = {
      */
     direction: _react.PropTypes.string,
     height: _react.PropTypes.number,
-    isOpen: _react.PropTypes.bool
+    isOpen: _react.PropTypes.bool,
+    wantsToggle: _react.PropTypes.func
 };
 
 Sidebar.defaultProps = {
-    direction: 'left',
+    direction: 'right',
     isOpen: false
 };

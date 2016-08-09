@@ -45,6 +45,7 @@ var AppDrawer = function (_Component) {
         };
 
         _this.onWindowResize = _this.onWindowResize.bind(_this);
+        _this.toggleSidebar = _this.toggleSidebar.bind(_this);
         return _this;
     }
 
@@ -52,8 +53,9 @@ var AppDrawer = function (_Component) {
         key: 'onWindowResize',
         value: function onWindowResize() {
             this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
+            console.log(this.state.sidebarHeight);
             this.refs.sidebar.height = this.state.sidebarHeight;
+            this.forceUpdate();
         }
 
         /* installs resize-event-listener on window */
@@ -83,6 +85,7 @@ var AppDrawer = function (_Component) {
         value: function openSidebar() {
             if (this.props.enabled) {
                 this.state.sideBarIsOpen = true;
+                this.forceUpdate();
             }
         }
     }, {
@@ -90,6 +93,15 @@ var AppDrawer = function (_Component) {
         value: function closeSidebar() {
             if (this.props.enabled) {
                 this.state.sideBarIsOpen = true;
+                this.forceUpdate();
+            }
+        }
+    }, {
+        key: 'toggleSidebar',
+        value: function toggleSidebar() {
+            if (this.props.enabled) {
+                this.state.sideBarIsOpen = !this.state.sideBarIsOpen;
+                this.forceUpdate();
             }
         }
     }, {
@@ -103,7 +115,7 @@ var AppDrawer = function (_Component) {
                 { ref: 'application', className: classname, id: this.props.id },
                 _react2.default.createElement(
                     _Sidebar2.default,
-                    { height: this.state.sidebarHeight, isOpen: isOpen, ref: 'sidebar' },
+                    { height: this.state.sidebarHeight, isOpen: isOpen, wantsToggle: this.toggleSidebar, ref: 'sidebar' },
                     this.props.sidebarContent
                 ),
                 _react2.default.createElement(
@@ -131,7 +143,8 @@ AppDrawer.propTypes = {
 AppDrawer.defaultProps = {
     title: "My Application",
     enabled: true,
-    id: ""
+    id: "",
+    className: ""
 };
 
 module.exports = AppDrawer;

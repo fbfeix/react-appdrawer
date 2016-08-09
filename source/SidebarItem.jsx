@@ -2,39 +2,22 @@
 import React, {Component} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
+/**
+ * Helper class SidebarItem
+ * It's very own job is to add transitionDelays to all Items of the Sidebar
+ */
 export default class SidebarItem extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            offscreen: true
-        }
     }
 
-    appear() {
-        this.state.offscreen = false;
-    }
-
-    disappear() {
-        this.state.offscreen = true;
-    }
-
-    toggleAppearance() {
-        this.state.offscreen = !this.state.offscreen;
-    }
 
     render() {
         let style = {
             transitionDelay: this.props.transitionDelay + "ms"
         }
 
-        let classname = "sidebar-item ";
-
-        if(this.state.offscreen) {
-            classname += "disappeared";
-        } else {
-            classname += "appeared";
-        }
+        let classname = "sidebar-item " + (this.props.className || "");
 
 
         return <div className={classname} style={style}>{this.props.children}</div>;

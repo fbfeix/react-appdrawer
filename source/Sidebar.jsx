@@ -1,11 +1,14 @@
 
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
 import SidebarItem from './SidebarItem';
 
-//import './Sidebar.scss';
-
+/**
+ * Sidebar class.
+ * In default mode, it represents a component which can be faded in and out of the left and right side of a screen.
+ * In non-default mode (orientation != left|right), it's also possible to use it as overlay etc.
+ */
 export default class Sidebar extends Component {
 
     constructor(props) {
@@ -50,7 +53,7 @@ export default class Sidebar extends Component {
             
         }
 
-        let sideDetermination = `sidebar-${this.props.direction}`;
+        let sideDetermination = `sidebar-${this.props.orientation}`;
         let sidebarClass = `fit sidebar ${sideDetermination}`;
 
         return <div className={classname}>
@@ -66,19 +69,19 @@ export default class Sidebar extends Component {
 
 
 Sidebar.propTypes = {
-    onToggledSidebar: PropTypes.func,
+    onToggledSidebar: React.PropTypes.func,
     /**
      * determines the orientation of the sidebar (left|right)
-     * If CSS-classes are provided, it also allows custom directions (ie. top|center|...)
-     * The render method merges automatically the classname: 'sidebar-{direction}'
+     * If CSS-classes are provided, it also allows custom orientations (ie. top|center|...)
+     * The render method merges automatically the classname: 'sidebar-{orientation}'
      */
-    direction: PropTypes.string,
-    height: PropTypes.number,
-    isOpen: PropTypes.bool,
-    wantsToggle: PropTypes.func
+    orientation: React.PropTypes.string,
+    height: React.PropTypes.number,
+    isOpen: React.PropTypes.bool,
+    wantsToggle: React.PropTypes.func
 }
 
 Sidebar.defaultProps = {
-    direction: 'right',
+    orientation: 'left',
     isOpen: false
 }
