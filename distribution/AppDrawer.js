@@ -30,7 +30,7 @@ var AppDrawer = function (_Component) {
     function AppDrawer(props) {
         _classCallCheck(this, AppDrawer);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AppDrawer).call(this, props));
+        var _this = _possibleConstructorReturn(this, (AppDrawer.__proto__ || Object.getPrototypeOf(AppDrawer)).call(this, props));
 
         _this.state = {
             /**
@@ -54,7 +54,7 @@ var AppDrawer = function (_Component) {
         value: function onWindowResize() {
             this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-            this.refs.sidebar.height = this.state.sidebarHeight;
+            //this.refs.sidebar.height = this.state.sidebarHeight; 
             this.forceUpdate();
         }
 

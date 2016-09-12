@@ -30,7 +30,7 @@ var SidebarItem = function (_Component) {
     function SidebarItem(props) {
         _classCallCheck(this, SidebarItem);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(SidebarItem).call(this, props));
+        return _possibleConstructorReturn(this, (SidebarItem.__proto__ || Object.getPrototypeOf(SidebarItem)).call(this, props));
     }
 
     _createClass(SidebarItem, [{

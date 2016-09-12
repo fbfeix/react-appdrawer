@@ -35,7 +35,7 @@ class AppDrawer extends Component {
     onWindowResize() {
         this.state.sidebarHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         
-        this.refs.sidebar.height = this.state.sidebarHeight; 
+        //this.refs.sidebar.height = this.state.sidebarHeight; 
         this.forceUpdate();
     }
 
